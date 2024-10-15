@@ -1,3 +1,5 @@
+This is fork with some extra features related to sRnet project
+
 # Provisioning Library  
 
 Provisioning library provides a mechanism to send network credentials and/or custom data to ESP32 (or its variants like S2, S3, C3, etc.) or ESP8266 devices.
