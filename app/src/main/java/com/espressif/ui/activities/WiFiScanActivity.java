@@ -14,8 +14,10 @@
 
 package com.espressif.ui.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -40,6 +42,7 @@ import com.espressif.provisioning.DeviceConnectionEvent;
 import com.espressif.provisioning.ESPConstants;
 import com.espressif.provisioning.ESPProvisionManager;
 import com.espressif.provisioning.WiFiAccessPoint;
+import com.espressif.provisioning.listeners.ResponseListener;
 import com.espressif.provisioning.listeners.WiFiScanListener;
 import com.espressif.ui.adapters.WiFiListAdapter;
 import com.espressif.wifi_provisioning.R;
@@ -53,6 +56,9 @@ import java.util.ArrayList;
 
 public class WiFiScanActivity extends AppCompatActivity {
 
+    private SharedPreferences sharedPreferences;
+
+    private String mqttName;
     private static final String TAG = WiFiScanActivity.class.getSimpleName();
 
     private Handler handler;
@@ -89,6 +95,9 @@ public class WiFiScanActivity extends AppCompatActivity {
         ivRefresh.setOnClickListener(refreshClickListener);
         adapter = new WiFiListAdapter(this, R.id.tv_wifi_name, wifiAPList);
 
+        sharedPreferences = getSharedPreferences(AppConstants.ESP_PREFERENCES, Context.MODE_PRIVATE);
+        mqttName = sharedPreferences.getString(AppConstants.sRnet_MQTT_ADDR,AppConstants.DEFAULT_USER_NAME_WIFI);
+
         // Assign adapter to ListView
         wifiListView.setAdapter(adapter);
         wifiListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -118,6 +127,23 @@ public class WiFiScanActivity extends AppCompatActivity {
 
         EventBus.getDefault().register(this);
         startWifiScan();
+    }
+
+    private void doCustomData() {
+
+        final String data = mqttName;
+        provisionManager.getEspDevice().sendDataToCustomEndPoint("custom-data", data.getBytes(), new ResponseListener() {
+                    @Override
+                    public void onSuccess(byte[] returnData) {
+                        Log.d(TAG, "Custom Data succes");
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        Log.d(TAG, "Custom Data fail");
+                    }
+                }
+        );
     }
 
     @Override
@@ -202,6 +228,8 @@ public class WiFiScanActivity extends AppCompatActivity {
 
         updateProgressAndScanBtn(false);
         handler.removeCallbacks(stopScanningTask);
+
+        doCustomData();
     }
 
     private void askForNetwork(final String ssid, final int authMode) {

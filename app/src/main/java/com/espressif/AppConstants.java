@@ -49,4 +49,7 @@ public class AppConstants {
     public static final String CAPABILITY_WIFI_SCAN = "wifi_scan";
     public static final String CAPABILITY_THREAD_SCAN = "thread_scan";
     public static final String CAPABILITY_THREAD_PROV = "thread_prov";
+    public static final String sRnet_WIFI_SSID = "sRnet_ssid_wifi";
+    public static final String sRnet_WIFI_PASSWORD = "sRnet_pass_wifi";
+    public static final String sRnet_MQTT_ADDR = "sRnet_addr_mqtt";
 }

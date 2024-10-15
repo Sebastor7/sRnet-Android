@@ -133,6 +133,10 @@
     <string name="security_selection_title">Encrypted Communication</string>
     <string name="username_wifi_pref_title">Sec2 Username for Wi-Fi</string>
     <string name="username_thread_pref_title">Sec2 Username for Thread</string>
+    <string name="ssid_wifi_pref_title">Preffered Wifi SSID</string>
+    <string name="pass_wifi_pref_title">Preffered Wifi Password</string>
+    <string name="addr_mqtt_pref_title">Preffered MQTT Address</string>
+    <string name="sRnet_selection_title">sRnet</string>
     <string name="username_selection_title">Username</string>
     <string name="summary_secured">Secured</string>
     <string name="summary_unsecured">Unsecured</string>

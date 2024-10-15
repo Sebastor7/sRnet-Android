@@ -75,7 +75,7 @@ public class SettingsActivity extends AppCompatActivity {
     public static class SettingsFragment extends PreferenceFragmentCompat {
 
         SwitchPreferenceCompat securityPref;
-        EditTextPreference userNamePrefWifi, userNamePrefThread;
+        EditTextPreference userNamePrefWifi, userNamePrefThread, userNamesRnetWifiSsid, userNamessRnetWifiPass, userNamessRnetMQTTAddr;
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -88,6 +88,9 @@ public class SettingsActivity extends AppCompatActivity {
             securityPref = prefMgr.findPreference(AppConstants.KEY_SECURITY_TYPE);
             userNamePrefWifi = prefMgr.findPreference(AppConstants.KEY_USER_NAME_WIFI);
             userNamePrefThread = prefMgr.findPreference(AppConstants.KEY_USER_NAME_THREAD);
+            userNamesRnetWifiSsid = prefMgr.findPreference(AppConstants.sRnet_WIFI_SSID);
+            userNamessRnetWifiPass = prefMgr.findPreference(AppConstants.sRnet_WIFI_PASSWORD);
+            userNamessRnetMQTTAddr = prefMgr.findPreference(AppConstants.sRnet_MQTT_ADDR);
 
             boolean isSecure = sharedPreferences.getBoolean(AppConstants.KEY_SECURITY_TYPE, true);
             if (isSecure) {
@@ -99,6 +102,9 @@ public class SettingsActivity extends AppCompatActivity {
                 userNamePrefWifi.setVisible(false);
                 userNamePrefThread.setVisible(false);
             }
+            userNamesRnetWifiSsid.setVisible(true);
+            userNamessRnetWifiPass.setVisible(true);
+            userNamessRnetMQTTAddr.setVisible(true);
 
             securityPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 
@@ -115,6 +121,9 @@ public class SettingsActivity extends AppCompatActivity {
                         userNamePrefWifi.setVisible(false);
                         userNamePrefThread.setVisible(false);
                     }
+                    userNamesRnetWifiSsid.setVisible(true);
+                    userNamessRnetWifiPass.setVisible(true);
+                    userNamessRnetMQTTAddr.setVisible(true);
                     return true;
                 }
             });

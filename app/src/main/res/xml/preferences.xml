@@ -37,6 +37,30 @@
             app:dialogTitle="@string/username_selection_title"
             app:useSimpleSummaryProvider="true" />
 
+        <EditTextPreference
+            app:defaultValue="ssid"
+            app:iconSpaceReserved="false"
+            app:key="sRnet_ssid_wifi"
+            app:title="@string/ssid_wifi_pref_title"
+            app:dialogTitle="@string/sRnet_selection_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="pass"
+            app:iconSpaceReserved="false"
+            app:key="sRnet_pass_wifi"
+            app:title="@string/pass_wifi_pref_title"
+            app:dialogTitle="@string/sRnet_selection_title"
+            app:useSimpleSummaryProvider="false" />
+
+        <EditTextPreference
+            app:defaultValue="mqtt"
+            app:iconSpaceReserved="false"
+            app:key="sRnet_addr_mqtt"
+            app:title="@string/addr_mqtt_pref_title"
+            app:dialogTitle="@string/sRnet_selection_title"
+            app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
