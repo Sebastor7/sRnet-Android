@@ -18,7 +18,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -105,6 +107,25 @@ public class SettingsActivity extends AppCompatActivity {
             userNamesRnetWifiSsid.setVisible(true);
             userNamessRnetWifiPass.setVisible(true);
             userNamessRnetMQTTAddr.setVisible(true);
+
+            if (userNamessRnetWifiPass != null) {
+                userNamessRnetWifiPass.setSummaryProvider(preference -> {
+                    String password = sharedPreferences.getString(AppConstants.sRnet_WIFI_PASSWORD, "");
+                    if (!password.isEmpty()) {
+                        return "********"; // Hide actual password
+                    } else {
+                        return "No password set";
+                    }
+                });
+            }
+
+            // Set listener to mask the password in the EditText dialog
+            userNamessRnetWifiPass.setOnPreferenceClickListener(preference -> {
+                userNamessRnetWifiPass.setOnBindEditTextListener(editText -> {
+                    editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                });
+                return true;
+            });
 
             securityPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 
