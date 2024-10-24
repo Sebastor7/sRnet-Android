@@ -245,6 +245,15 @@ public class WiFiScanActivity extends AppCompatActivity {
             etSsid.setVisibility(View.GONE);
         }
 
+        String prefferedSsid = sharedPreferences.getString(AppConstants.sRnet_WIFI_SSID,null);
+        String prefferedPass = sharedPreferences.getString(AppConstants.sRnet_WIFI_PASSWORD,null);
+
+        //here we have to check id ssid == prefered and get preffered password and goForProvisioning(ssid, password);
+        if (ssid.equals(prefferedSsid)) {
+          if(prefferedPass != null){
+              goForProvisioning(ssid, prefferedPass);
+          }
+        }
         final AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setView(dialogView)
                 .setTitle(title)
